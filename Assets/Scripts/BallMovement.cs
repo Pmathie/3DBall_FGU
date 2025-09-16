@@ -39,8 +39,7 @@ public class BallMovement : MonoBehaviour
             wantsToJump = true;
         }
 
-        Debug.Log("Forward value" + forward);
-        Debug.Log("Right value" + right);
+
     }
 
     void FixedUpdate()
