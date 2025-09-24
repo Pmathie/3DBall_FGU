@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
+    public Vector3 latestCheckpointPosition; // Den seneste checkpoint position
+
     public float speed = 10f;           // Hastigheden som bolden bevæger sig med
     public float jumpForce = 5f;        // Kraften som bolden hopper med
     public Transform cameraTransform;   // Vores kamera, der renderer scenen
@@ -16,6 +18,7 @@ public class BallMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>(); // Vi henter vores RigidBody komponent og gemmer den i rb variablen
         cameraTransform = Camera.main.transform; // Vi henter hovedkameraets transform komponent og gemmer den i cameraTransform variablen
+        latestCheckpointPosition = transform.position; // Initialiserer checkpoint positionen til startpositionen
 
     }
 
@@ -38,7 +41,6 @@ public class BallMovement : MonoBehaviour
         {
             wantsToJump = true;
         }
-
 
     }
 
@@ -69,5 +71,19 @@ public class BallMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Checkpoint"))
+        {
+            latestCheckpointPosition = other.transform.position;
+        }
+    }
+    public void Respawn()
+    {
+        rb.linearVelocity = Vector3.zero;          // Nulstil hastigheden for at undgå bevægelse efter respawn
+        rb.angularVelocity = Vector3.zero;         // Nulstil rotationshastigheden
+        transform.position = latestCheckpointPosition;
+        
     }
 }

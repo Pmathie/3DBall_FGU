@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
     public TextMeshProUGUI coinText;
+    private float timer;
+    public TextMeshProUGUI timerText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -15,6 +17,11 @@ public class UIManager : MonoBehaviour
             return;
         }
         Instance = this;
+    }
+    private void Update()
+    {
+        timer = timer + Time.deltaTime;
+        timerText.text = timer.ToString("F0");
     }
     public void UpdateCoinCount(int numberOfCoins)
     {
