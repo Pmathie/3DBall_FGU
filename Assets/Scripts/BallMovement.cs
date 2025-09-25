@@ -72,6 +72,11 @@ public class BallMovement : MonoBehaviour
         {
             latestCheckpointPosition = other.transform.position;
         }
+        
+        if(other.CompareTag("DeathZone"))
+        {
+            Respawn();
+        }
     }
     public void Respawn()
     {
