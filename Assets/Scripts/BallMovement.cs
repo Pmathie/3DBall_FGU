@@ -39,7 +39,7 @@ public class BallMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            wantsToJump = true;
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
     }
@@ -49,12 +49,6 @@ public class BallMovement : MonoBehaviour
         // 4) Apply movement using physics
         rb.AddForce(moveDirection * speed);
         
-        if (wantsToJump && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-            wantsToJump = false;
-        }
     }
     void OnCollisionEnter(Collision collision)
     {
